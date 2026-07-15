@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENO8 · Hero Sample — "Own What's Next" (Locked Copy)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:        #E15A1A;
+    --orange-state:  #963509;
+    --orange-soft:   #FFE7D7;
+    --sage:          #5F9489;
+    --sage-deep:     #3F6D62;
+    --sage-mid:      #9CBAB1;
+    --sage-soft:     #DCE6E2;
+    --white:         #FFFFFF;
+    --paper:         #FAFAFA;
+    --charcoal:      #1A1A1A;
+    --carbon:        #0A0A0A;
+    --rule:          #E5E5E5;
+    --ink-9:         #0A0A0A;
+    --ink-7:         #3F3F3F;
+    --ink-5:         #6B6B6B;
+    --ink-3:         #B5B5B5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink-7);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ===== slim review banner ===== */
+  .doc-banner {
+    background: var(--charcoal); color: #fff;
+    padding: 16px 40px;
+    display: flex; align-items: center; gap: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .doc-banner .mark {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700; font-size: 18px; letter-spacing: -0.04em;
+  }
+  .doc-banner .mark .w8 { color: var(--orange); }
+  .doc-banner .title { font-family: 'Geist', sans-serif; font-size: 13px; color: rgba(255,255,255,0.7); }
+  .doc-banner .spacer { flex: 1; }
+  .doc-banner .stamp { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sage-mid); }
+
+  .frame-wrap { max-width: 1180px; margin: 40px auto 0; padding: 0 40px; }
+  .frame {
+    border: 1px solid var(--rule); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 32px -16px rgba(0,0,0,0.12);
+    background: #fff;
+  }
+  .frame-cap {
+    padding: 10px 16px; border-top: 1px solid var(--rule); background: var(--paper);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-5);
+    display: flex; gap: 16px; align-items: baseline;
+  }
+  .frame-cap::before { content: "// "; }
+  .frame-cap b { color: var(--ink-9); font-weight: 500; }
+  .frame-cap .note { color: var(--ink-7); font-family: 'Geist', sans-serif; font-size: 11px; }
+
+  /* ===== site nav ===== */
+  .site-nav {
+    display: flex; align-items: center; padding: 22px 44px;
+    background: var(--charcoal); color: #fff; position: relative; z-index: 2;
+  }
+  .site-nav .logo { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.045em; color: #fff; }
+  .site-nav .logo .w8 { color: var(--orange); }
+  .site-nav-links { display: flex; gap: 26px; margin-left: 40px; flex: 1; }
+  .site-nav-links a { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; }
+  .site-nav-links a:hover { color: #fff; }
+  .nav-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sage-mid);
+    padding: 4px 10px; border: 1px solid rgba(156,186,177,0.4); border-radius: 4px; margin-right: 14px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Geist', sans-serif; font-weight: 500; font-size: 14px;
+    padding: 11px 18px; border-radius: 6px; border: 1px solid transparent;
+    text-decoration: none; cursor: pointer; transition: background-color .12s, border-color .12s;
+  }
+  .btn-primary { background: var(--orange); color: #fff; }
+  .btn-primary:hover { background: var(--orange-state); }
+  .btn-on-dark { background: transparent; color: #fff; border-color: rgba(255,255,255,0.25); }
+  .btn-on-dark:hover { border-color: rgba(255,255,255,0.55); }
+  .btn-small { padding: 8px 14px; font-size: 13px; }
+
+  /* ===== hero ===== */
+  .hero {
+    background: var(--charcoal); color: #fff;
+    padding: 80px 44px 84px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 44px 44px; pointer-events: none;
+  }
+  .hero > * { position: relative; }
+  .hero-eye {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sage-mid);
+    margin-bottom: 26px; letter-spacing: 0.04em;
+  }
+  .hero-eye::before { content: "// "; color: rgba(255,255,255,0.4); }
+  .hero h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: clamp(64px, 9vw, 118px); line-height: 0.92; font-weight: 600;
+    letter-spacing: -0.045em; color: #fff; margin: 0 0 28px; max-width: 12ch;
+  }
+  .hero h1 .dot { color: var(--orange); }
+  .hero-sub {
+    font-family: 'Geist', sans-serif; font-size: 20px; line-height: 1.55;
+    color: rgba(255,255,255,0.82); max-width: 640px; margin: 0 0 38px;
+  }
+  .hero-sub b { color: #fff; font-weight: 500; }
+  .hero-ctas { display: flex; gap: 12px; align-items: center; margin-bottom: 56px; }
+
+  /* triplet narrative pillars */
+  .pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .pillar { padding: 26px 28px 4px 0; border-right: 1px solid rgba(255,255,255,0.1); }
+  .pillar:last-child { border-right: 0; padding-right: 0; }
+  .pillar .idx { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--orange); margin-bottom: 12px; }
+  .pillar h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: #fff; margin: 0 0 8px; }
+  .pillar p { font-family: 'Geist', sans-serif; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.68); margin: 0; max-width: 30ch; }
+
+  /* ===== white situation peek ===== */
+  .peek { background: var(--white); padding: 64px 44px 72px; }
+  .peek-eye { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--orange); letter-spacing: 0.04em; margin-bottom: 10px; }
+  .peek-eye::before { content: "// "; color: var(--ink-5); }
+  .peek h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: 40px; line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; color: var(--ink-9); margin: 0 0 8px; max-width: 18ch; }
+  .peek .lead { font-family: 'Geist', sans-serif; font-size: 16px; line-height: 1.6; color: var(--ink-7); max-width: 620px; margin: 0 0 36px; }
+  .situations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .sit { padding: 24px 26px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: #fff; }
+  .sit:nth-child(3n) { border-right: 0; }
+  .sit:nth-last-child(-n+3) { border-bottom: 0; }
+  .sit .q { font-family: 'IBM Plex Sans', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink-9); margin: 0 0 4px; }
+  .sit .q .quote { color: var(--orange); }
+  .sit p { font-family: 'Geist', sans-serif; font-size: 13.5px; line-height: 1.55; color: var(--ink-7); margin: 0; }
+  .sit .arrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sage-deep); margin-top: 10px; display: inline-block; }
+
+  /* ===== descriptor strip ===== */
+  .descriptor-strip { background: var(--carbon); color: #fff; padding: 28px 44px; display: flex; align-items: center; gap: 18px; }
+  .descriptor-strip .logo { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.045em; color: #fff; }
+  .descriptor-strip .logo .w8 { color: var(--orange); }
+  .descriptor-strip .desc { font-family: 'Geist', sans-serif; font-size: 15px; color: rgba(255,255,255,0.8); }
+  .descriptor-strip .spacer { flex: 1; }
+  .descriptor-strip .where { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--sage-mid); }
+
+  /* ===== proof band + testimonials (Phillip: proof front-and-center) ===== */
+  .proof { background: var(--white); padding: 4px 44px 72px; }
+  .proof-band {
+    background: var(--charcoal); color: #fff; border-radius: 12px;
+    padding: 40px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+  }
+  .proof-band::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 40px 40px; pointer-events: none;
+  }
+  .proof-band > * { position: relative; }
+  .proof-stat {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 38px; font-weight: 600;
+    letter-spacing: -0.03em; line-height: 1.08; color: #fff; margin: 0; max-width: 22ch;
+  }
+  .proof-stat .num { color: var(--orange); }
+  .proof-stat .q { display: block; font-size: 20px; color: var(--sage-mid); font-weight: 500; margin-top: 10px; letter-spacing: -0.01em; }
+  .proof-eye { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--orange); letter-spacing: 0.04em; margin: 40px 0 12px; }
+  .proof-eye::before { content: "// "; color: var(--ink-5); }
+  .twall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tcard { border: 1px solid var(--rule); border-radius: 12px; padding: 22px; background: #fff; }
+  .tcard .quote { font-family: 'IBM Plex Sans', sans-serif; font-size: 15.5px; line-height: 1.45; font-weight: 500; color: var(--ink-9); letter-spacing: -0.005em; margin: 0 0 18px; }
+  .tcard .who { display: flex; align-items: center; gap: 12px; }
+  .tcard .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--sage-soft); border: 1px solid var(--rule); flex-shrink: 0; }
+  .tcard .meta .name { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink-9); }
+  .tcard .meta .role { font-family: 'Geist', sans-serif; font-size: 12px; color: var(--ink-5); }
+  .proof-cs-link { margin-top: 20px; }
+
+  .foot {
+    max-width: 1180px; margin: 48px auto 0; padding: 40px 40px 80px;
+    border-top: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-5);
+  }
+  .foot div { margin-bottom: 4px; }
+  .foot div::before { content: "// "; }
+
+  @media (max-width: 860px) {
+    .pillars { grid-template-columns: 1fr; }
+    .pillar { border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 20px 0; }
+    .situations { grid-template-columns: 1fr; }
+    .twall { grid-template-columns: 1fr; }
+    .proof-band { flex-direction: column; align-items: flex-start; }
+  }
+  @media (min-width: 861px) and (max-width: 1080px) {
+    .situations { grid-template-columns: repeat(2, 1fr); }
+    .sit:nth-child(3n) { border-right: 1px solid var(--rule); }
+    .sit:nth-child(2n) { border-right: 0; }
+    .sit:nth-last-child(-n+3) { border-bottom: 1px solid var(--rule); }
+    .sit:nth-last-child(-n+2) { border-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-banner">
+  <span class="mark">ENO<span class="w8">8</span></span>
+  <span class="title">Homepage Hero Sample &middot; &ldquo;Own what&rsquo;s next&rdquo;</span>
+  <span class="spacer"></span>
+  <span class="stamp">// v4 &middot; post-Phillip review &middot; 2026-07-02</span>
+</div>
+
+<div class="frame-wrap">
+  <div class="frame">
+
+    <!-- nav -->
+    <div class="site-nav">
+      <span class="logo">ENO<span class="w8">8</span></span>
+      <div class="site-nav-links">
+        <a>Work</a><a>Capabilities</a><a>Approach</a><a>Insights</a><a>Company</a>
+      </div>
+      <span class="nav-tag">q3 slots open</span>
+      <button class="btn btn-primary btn-small">Book a consultation</button>
+    </div>
+
+    <!-- hero -->
+    <div class="hero">
+      <div class="hero-eye">PRODUCT STRATEGY · DESIGN · ENGINEERING</div>
+      <h1>Own what's<br><span class="dot">next</span></h1>
+      <p class="hero-sub">When the market moves faster than your team can respond, you need more than a vendor. ENO8 is the <b>proven AI-native digital product partner</b> that helps you take control and move forward with clarity and confidence.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary">Book a consultation</button>
+        <button class="btn btn-on-dark">See how we work</button>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="idx">01 / STRATEGY</div>
+          <h3>Build the right thing.</h3>
+          <p>Clarity on what to build, and why, before a line of code is written.</p>
+        </div>
+        <div class="pillar">
+          <div class="idx">02 / SPEED</div>
+          <h3>Build it fast.</h3>
+          <p>AI in the methodology turns what took months into weeks.</p>
+        </div>
+        <div class="pillar">
+          <div class="idx">03 / QUALITY</div>
+          <h3>Build the thing right.</h3>
+          <p>Architecture built to scale — so you can grow with confidence, not constraints.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- white situation peek -->
+    <div class="peek">
+      <div class="peek-eye">WHAT'S YOUR SITUATION?</div>
+      <h2>Most teams reach us at one of six moments.</h2>
+      <p class="lead">We organize around the problem you're in — not a service menu. Find the one that sounds like you.</p>
+      <div class="situations">
+        <div class="sit">
+          <p class="q"><span class="quote">"</span>I have an idea and need to know what it takes to build it.<span class="quote">"</span></p>
+          <p>Turn a vision into a clear, costed, build-ready plan.</p>
+          <span class="arrow">Sounds like you →</span>
+        </div>
+        <div class="sit">
+          <p class="q"><span class="quote">"</span>We vibe-coded something and hit the wall.<span class="quote">"</span></p>
+          <p>Get a prototype to a product that's actually ready for production.</p>
+          <span class="arrow">Sounds like you →</span>
+        </div>
+        <div class="sit">
+          <p class="q"><span class="quote">"</span>Our project is on fire.<span class="quote">"</span></p>
+          <p>Stabilize it, find out what went wrong, and get back on track.</p>
+          <span class="arrow">Sounds like you →</span>
+        </div>
+        <div class="sit">
+          <p class="q"><span class="quote">"</span>We need a long-term product team we can trust.<span class="quote">"</span></p>
+          <p>A partner that ships with you — and makes your own team better.</p>
+          <span class="arrow">Sounds like you →</span>
+        </div>
+        <div class="sit">
+          <p class="q"><span class="quote">"</span>We know AI can help — we just don't know where to start.<span class="quote">"</span></p>
+          <p>Find where AI actually moves your business, and prove it works.</p>
+          <span class="arrow">Sounds like you →</span>
+        </div>
+        <div class="sit">
+          <p class="q"><span class="quote">"</span>We've lost confidence in our current team.<span class="quote">"</span></p>
+          <p>Bring in a team that delivers, communicates, and tells you the truth.</p>
+          <span class="arrow">Sounds like you →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- proof band + testimonials (Phillip: proof front-and-center) -->
+    <div class="proof">
+      <div class="proof-band">
+        <p class="proof-stat">Over <span class="num">40</span> products shipped. And counting.<span class="q">Is yours next?</span></p>
+        <button class="btn btn-primary">Book a consultation</button>
+      </div>
+      <div class="proof-eye">WHAT CLIENTS SAY</div>
+      <div class="twall">
+        <div class="tcard">
+          <p class="quote">"They didn't show up with a deck — they showed up with a plan we could actually build. We knew what we were signing up for before we started."</p>
+          <div class="who">
+            <div class="avatar"></div>
+            <div class="meta"><div class="name">Chief Product Officer</div><div class="role">Healthcare workflow platform</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <p class="quote">"It's like having a senior product team on demand. They ship, they communicate, and they've made our own team better."</p>
+          <div class="who">
+            <div class="avatar"></div>
+            <div class="meta"><div class="name">CEO</div><div class="role">Logistics software company</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <p class="quote">"Two vendors burned us before ENO8. They stabilized the product, told us the truth about what was wrong, and got us moving again."</p>
+          <div class="who">
+            <div class="avatar"></div>
+            <div class="meta"><div class="name">Founder</div><div class="role">Fintech platform</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-cs-link"><a href="#" style="font-family:'Geist',sans-serif;font-size:14px;font-weight:600;color:var(--orange);text-decoration:none;border-bottom:1px solid var(--orange);padding-bottom:1px;">Read the case studies →</a></div>
+    </div>
+
+    <!-- descriptor strip -->
+    <div class="descriptor-strip">
+      <span class="logo">ENO<span class="w8">8</span></span>
+      <span class="desc">An AI-native digital product partner.</span>
+      <span class="spacer"></span>
+      <span class="where">descriptor lives in footer / about / linkedin — not the hero</span>
+    </div>
+
+  </div>
+  <div class="frame-cap"><b>Homepage hero — locked</b> <span class="note">"Own What's Next." + locked sub-text · charcoal + grid · triplet pillars carry the substance · descriptor in footer · flat fills, no gradient</span></div>
+</div>
+
+<div class="foot">
+  <div>ENO8 homepage hero sample · "Own what's next" · locked hero + sub-heading · Brand Style Guide v1.0 system</div>
+  <div>forge #E15A1A · sage #5F9489 · IBM Plex Sans / Geist / JetBrains Mono · flat fills · subtle grid</div>
+  <div>phillip review (07-02): added "proven" to sub-heading · new proof band ("over 40 shipped · is yours next?") + testimonials · doors expanded 4 → 6 (added AI-start &amp; lost-confidence)</div>
+  <div>my cut, for your review: door 4 sharpened to "long-term partner" so it's distinct from door 6 (current team broken) · situation cards now say "sounds like you →" instead of naming offers (per phillip "don't publish the how" + jenna "does this sound like you")</div>
+  <div>placeholders to swap: testimonial avatar circles → real client headshots · testimonial quotes/attributions → real (currently on-voice stand-ins) · project count "40" → confirm exact number</div>
+</div>
+
+</body>
+</html>
