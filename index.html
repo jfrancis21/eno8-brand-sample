@@ -160,6 +160,17 @@
 
   /* ===== proof band + testimonials (Phillip: proof front-and-center) ===== */
   .proof { background: var(--white); padding: 4px 44px 72px; }
+  .placeholder-strip {
+    margin: 0 0 18px;
+    padding: 10px 16px;
+    background: var(--orange-soft);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 6px 6px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.02em;
+    color: var(--orange-state);
+  }
+  .placeholder-strip::before { content: "// "; color: var(--ink-5); }
   .proof-band {
     background: var(--charcoal); color: #fff; border-radius: 12px;
     padding: 40px; position: relative; overflow: hidden;
@@ -220,7 +231,7 @@
   <span class="mark">ENO<span class="w8">8</span></span>
   <span class="title">Homepage Hero Sample &middot; &ldquo;Own what&rsquo;s next&rdquo;</span>
   <span class="spacer"></span>
-  <span class="stamp">// v5 &middot; aligned to merged messaging doc &middot; 2026-07-29</span>
+  <span class="stamp">// v5.1 &middot; internal review &middot; placeholder proof labeled &middot; 2026-07-29</span>
 </div>
 
 <div class="frame-wrap">
@@ -306,6 +317,7 @@
 
     <!-- proof band + testimonials (Phillip: proof front-and-center) -->
     <div class="proof">
+      <div class="placeholder-strip">INTERNAL REVIEW SAMPLE &middot; testimonials and project count below are placeholders, not published claims &middot; real proof tracked in eno8-marketing/proof/</div>
       <div class="proof-band">
         <p class="proof-stat">Over <span class="num">40</span> products shipped. And counting.<span class="q">Is yours next?</span></p>
         <button class="btn btn-primary">Book a consultation</button>
